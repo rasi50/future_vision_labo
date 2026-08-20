@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FUTURE_VISION_LABO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:#141414;
+    --gray-800:#333333;
+    --gray-600:#5c5c5c;
+    --gray-400:#9a9a9a;
+    --gray-300:#c8c8c8;
+    --gray-200:#e4e4e4;
+    --gray-100:#f0f0f0;
+    --gray-50:#fafafa;
+    --white:#ffffff;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN",sans-serif;
+    color:var(--gray-800);
+    background:var(--gray-50);
+    line-height:1.85;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.jp-display {
+    font-family:"Zen Kaku Gothic New","Noto Sans JP",sans-serif;
+    color:var(--black);
+    letter-spacing:0.02em;
+  }
+  .en-display { font-family:"Space Grotesk",sans-serif; }
+  .wrap { max-width:1120px; margin:0 auto; padding:0 32px; }
+  a { text-decoration:none; color:inherit; }
+  img { display:block; max-width:100%; }
+
+  /* placeholder blocks (画像差し替え予定箇所) */
+  .ph {
+    background:var(--gray-100);
+    border:1px solid var(--gray-300);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--gray-600); font-size:12px; text-align:center; letter-spacing:0.05em;
+    overflow:hidden;
+  }
+  .ph svg { width:60%; height:60%; }
+  .ph.illust-full svg { width:100%; height:100%; }
+  .icon-line { stroke:var(--black); fill:none; stroke-width:1.4; stroke-linecap:round; stroke-linejoin:round; }
+  .icon-line-soft { stroke:var(--gray-400); fill:none; stroke-width:1.2; stroke-linecap:round; stroke-linejoin:round; }
+
+  /* waveform divider (シグネチャー要素) */
+  .wave-divider {
+    display:flex; align-items:flex-end; justify-content:center; gap:3px;
+    height:32px; margin:0 auto; opacity:0.55;
+  }
+  .wave-divider span {
+    width:2px; background:var(--gray-400); border-radius:2px;
+    animation:wave 2.6s ease-in-out infinite;
+  }
+  @keyframes wave {
+    0%,100% { height:6px; }
+    50% { height:26px; }
+  }
+
+  .eyebrow {
+    font-size:12px; letter-spacing:0.22em; color:var(--gray-600);
+    text-transform:uppercase; margin-bottom:14px; font-family:"Space Grotesk",sans-serif;
+  }
+  .eyebrow.center { text-align:center; }
+  .section-head { text-align:center; margin-bottom:56px; }
+  .section-head h2 { font-size:30px; line-height:1.6; }
+
+  .btn {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:15px 32px; font-size:14px; letter-spacing:0.04em;
+    border-radius:2px; transition:all .25s ease;
+  }
+  .btn-solid { background:var(--black); color:#fff; }
+  .btn-solid:hover { background:var(--gray-800); }
+  .btn-outline { border:1px solid var(--black); color:var(--black); }
+  .btn-outline:hover { background:var(--black); color:#fff; }
+
+  /* ===== HEADER ===== */
+  header {
+    position:sticky; top:0; z-index:50; background:rgba(250,250,250,0.92);
+    backdrop-filter:blur(6px); border-bottom:1px solid var(--gray-200);
+  }
+  header .inner {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 32px; max-width:1120px; margin:0 auto;
+  }
+  .logo {
+    font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:18px;
+    letter-spacing:0.05em; color:var(--black); display:flex; align-items:center; gap:10px;
+  }
+  .logo .mark {
+    width:26px; height:26px; border-radius:50%;
+    border:2px solid var(--black); position:relative;
+  }
+  .logo .mark::after {
+    content:""; position:absolute; inset:6px; border-radius:50%; background:var(--black);
+  }
+  nav ul { display:flex; gap:36px; list-style:none; font-size:13px; letter-spacing:0.03em; }
+  nav a:hover { color:var(--gray-600); }
+  header .btn { padding:11px 22px; font-size:12px; }
+  .nav-mobile-note { display:none; }
+
+  /* ===== HERO ===== */
+  .hero { padding:100px 32px 0; overflow:hidden; }
+  .hero .grid {
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:center;
+    max-width:1120px; margin:0 auto;
+  }
+  .badge-limited {
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--black); border-radius:20px; padding:7px 18px 7px 14px;
+    font-size:12px; letter-spacing:0.05em; margin-bottom:28px;
+  }
+  .badge-limited .dot { width:6px; height:6px; border-radius:50%; background:var(--black); }
+  .hero h1 {
+    font-size:48px; font-weight:900; line-height:1.4; margin-bottom:26px;
+  }
+  .hero .lead { font-size:15px; color:var(--gray-600); max-width:480px; margin-bottom:40px; }
+  .hero .cta-row { display:flex; gap:16px; flex-wrap:wrap; }
+  .hero .visual { aspect-ratio:4/5; border-radius:4px; }
+  .hero-bottom { margin-top:70px; }
+
+  /* ===== FV直下 価格バー ===== */
+  .price-bar {
+    max-width:1120px; margin:0 auto; padding:28px 32px;
+    border-top:1px solid var(--gray-300); border-bottom:1px solid var(--gray-300);
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;
+  }
+  .price-bar .left { display:flex; align-items:baseline; gap:18px; flex-wrap:wrap; }
+  .price-bar .tag { font-size:12.5px; color:var(--gray-600); }
+  .price-bar .amount {
+    font-family:"Space Grotesk",sans-serif; font-size:30px; font-weight:700; color:var(--black);
+  }
+  .price-bar .amount span { font-size:13px; font-weight:400; color:var(--gray-600); }
+  .price-bar .note { font-size:11px; color:var(--gray-400); }
+
+  /* ===== 展開予定サービス(ビジョン) ===== */
+  .vision { padding:110px 32px; background:var(--gray-100); }
+  .vision .intro { max-width:680px; margin:0 auto 64px; text-align:center; }
+  .vision .intro p { font-size:14.5px; color:var(--gray-600); }
+  .vision-list {
+    max-width:900px; margin:0 auto; border-top:1px solid var(--gray-300);
+  }
+  .vision-item {
+    display:flex; align-items:center; gap:28px; padding:26px 6px;
+    border-bottom:1px solid var(--gray-300);
+  }
+  .vision-item .idx { font-family:"Space Grotesk",sans-serif; font-size:13px; color:var(--gray-400); width:28px; flex-shrink:0; }
+  .vision-item .name { font-size:16px; color:var(--black); flex:1; }
+  .vision-item .desc { font-size:12.5px; color:var(--gray-600); flex:2; }
+  .vision-item .status {
+    font-size:11px; padding:5px 14px; border-radius:20px; flex-shrink:0;
+    letter-spacing:0.03em; white-space:nowrap;
+  }
+  .vision-item.active { background:var(--white); }
+  .vision-item.active .status { background:var(--black); color:#fff; }
+  .vision-item .status.soon { border:1px solid var(--gray-300); color:var(--gray-400); }
+
+  /* ===== 経歴 ===== */
+  .profile { padding:110px 32px; }
+  .profile .grid {
+    display:grid; grid-template-columns:0.8fr 1.2fr; gap:64px; align-items:center;
+    max-width:1120px; margin:0 auto;
+  }
+  .profile .photo { aspect-ratio:1/1; border-radius:50%; }
+  .profile h3 { font-size:24px; margin-bottom:20px; line-height:1.6; }
+  .profile p { font-size:15px; color:var(--gray-600); }
+  .profile .eyebrow.center { justify-content:center; }
+
+  /* ===== こんな方におすすめ ===== */
+  .target { padding:110px 32px; background:var(--gray-100); }
+  .target-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--gray-300); max-width:900px; margin:0 auto; }
+  .target-item { background:var(--gray-100); padding:44px 36px; text-align:center; }
+  .target-item .illust {
+    width:72px; height:72px; border-radius:50%; background:var(--white);
+    border:1px solid var(--gray-300); display:flex; align-items:center; justify-content:center;
+    margin:0 auto 20px;
+  }
+  .target-item .illust svg { width:34px; height:34px; }
+  .target-item .num { font-family:"Space Grotesk",sans-serif; font-size:12px; color:var(--gray-400); margin-bottom:10px; letter-spacing:0.05em; }
+  .target-item h3 { font-size:18px; margin-bottom:12px; line-height:1.6; }
+  .target-item p { font-size:13px; color:var(--gray-600); }
+
+  /* ===== 施術内容(3つの柱) ===== */
+  .offer { padding:110px 32px; }
+  .offer .intro { text-align:center; max-width:640px; margin:0 auto 70px; }
+  .offer .intro h2 { font-size:28px; line-height:1.65; margin-bottom:20px; }
+  .offer .intro p { font-size:14px; color:var(--gray-600); }
+  .pillars { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--gray-300); max-width:1000px; margin:0 auto; }
+  .pillar { background:var(--white); padding:48px 32px; text-align:center; }
+  .pillar .icon-ring {
+    width:64px; height:64px; border-radius:50%; border:1px solid var(--gray-300);
+    display:flex; align-items:center; justify-content:center; margin:0 auto 22px;
+    color:var(--black);
+  }
+  .pillar .icon-ring svg { width:26px; height:26px; }
+  .pillar h4 { font-size:15px; margin-bottom:10px; letter-spacing:0.02em; }
+  .pillar p { font-size:12.5px; color:var(--gray-600); }
+
+  /* ===== 3つの学び(精密栄養学 / アーユルヴェーダ) ===== */
+  .discipline { padding:100px 32px; }
+  .discipline:nth-child(even) { background:var(--gray-100); }
+  .discipline .grid {
+    display:grid; grid-template-columns:0.85fr 1.15fr; gap:64px; align-items:center;
+    max-width:1120px; margin:0 auto;
+  }
+  .discipline.reverse .grid { grid-template-columns:1.15fr 0.85fr; }
+  .discipline.reverse .grid .visual { order:2; }
+  .discipline .visual { aspect-ratio:4/3; }
+  .discipline .num-tag {
+    font-family:"Space Grotesk",sans-serif; font-size:12px; color:var(--gray-400);
+    letter-spacing:0.08em; margin-bottom:16px;
+  }
+  .discipline .num-tag { text-align:center; }
+  .discipline h3 { font-size:24px; line-height:1.65; margin-bottom:22px; text-align:center; }
+  .discipline p { font-size:14.5px; color:var(--gray-600); margin-bottom:14px; }
+  .discipline .flow {
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    margin-top:26px; padding-top:26px; border-top:1px solid var(--gray-300);
+    justify-content:center;
+  }
+  .discipline .flow .step {
+    font-size:12.5px; padding:8px 16px; border:1px solid var(--gray-300); border-radius:20px;
+    color:var(--gray-800);
+  }
+  .discipline .flow .arrow { color:var(--gray-400); font-size:13px; }
+
+  /* ===== 機能性音楽とは ===== */
+  .about-music { padding:120px 32px; background:var(--black); color:var(--gray-300); }
+  .about-music .wrap { max-width:960px; }
+  .about-music .eyebrow { color:var(--gray-400); }
+  .about-music h2 {
+    color:var(--white); font-size:30px; line-height:1.7; margin-bottom:36px; max-width:680px;
+  }
+  .about-music p.body { font-size:14.5px; color:var(--gray-400); max-width:600px; margin-bottom:56px; }
+  .freq-visual {
+    display:flex; align-items:flex-end; gap:5px; height:110px; padding:0 4px;
+  }
+  .freq-visual span {
+    flex:1; background:linear-gradient(to top, #fff, #666);
+    border-radius:2px; opacity:0.85;
+    animation:freq 2.4s ease-in-out infinite;
+  }
+  @keyframes freq { 0%,100%{ transform:scaleY(0.15); } 50%{ transform:scaleY(1); } }
+  .about-music .caption { margin-top:20px; font-size:11px; color:var(--gray-600); letter-spacing:0.05em; text-align:center; }
+
+  /* ===== 音楽作品紹介 ===== */
+  .music-works { padding:110px 32px; }
+  .track-list { max-width:820px; margin:0 auto; }
+  .track {
+    display:flex; align-items:center; gap:24px;
+    padding:26px 8px; border-bottom:1px solid var(--gray-200);
+  }
+  .track:first-child { border-top:1px solid var(--gray-200); }
+  .track .play {
+    width:44px; height:44px; border-radius:50%; border:1px solid var(--black);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:13px;
+  }
+  .track .meta { flex:1; }
+  .track .meta .title { font-size:15px; color:var(--black); margin-bottom:4px; }
+  .track .meta .tag { font-size:12px; color:var(--gray-400); font-family:"Space Grotesk",sans-serif; }
+  .track .wave { display:flex; align-items:center; gap:2px; height:22px; flex-shrink:0; width:120px; }
+  .track .wave span { width:2px; background:var(--gray-300); border-radius:2px; }
+  .track .duration { font-family:"Space Grotesk",sans-serif; font-size:12px; color:var(--gray-400); width:40px; text-align:right; }
+
+  /* ===== 動画 ===== */
+  .videos { padding:110px 32px; background:var(--gray-100); }
+  .video-grid { display:grid; grid-template-columns:1fr 1fr; gap:40px; max-width:1000px; margin:0 auto; }
+  .video-box { aspect-ratio:16/9; margin-bottom:14px; overflow:hidden; }
+  .video-caption { font-size:12.5px; color:var(--gray-600); text-align:center; }
+
+  /* ===== 著名人の声 / メディア掲載 ===== */
+  .press-grid {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--gray-300);
+    max-width:1000px; margin:56px auto 0;
+  }
+  .press-card {
+    background:var(--white); padding:36px 28px; text-align:center;
+  }
+  .press-card .role { font-size:11px; color:var(--gray-400); letter-spacing:0.05em; margin-bottom:10px; font-family:"Space Grotesk",sans-serif; }
+  .press-card .name { font-size:16px; color:var(--black); margin-bottom:14px; }
+  .press-card a {
+    font-size:12px; color:var(--gray-600); border-bottom:1px solid var(--gray-400); padding-bottom:2px;
+  }
+  .press-card a:hover { color:var(--black); border-color:var(--black); }
+
+  .media-feature {
+    max-width:1000px; margin:32px auto 0; border:1px solid var(--gray-300);
+    padding:32px 36px; display:flex; align-items:center; gap:28px; flex-wrap:wrap;
+    background:var(--white);
+  }
+  .media-feature .mark {
+    font-size:11px; letter-spacing:0.08em; color:var(--gray-400);
+    border:1px solid var(--gray-300); border-radius:20px; padding:5px 14px; flex-shrink:0;
+  }
+  .media-feature .body { flex:1; min-width:260px; }
+  .media-feature .body p { font-size:13.5px; color:var(--gray-800); margin-bottom:6px; }
+  .media-feature .body .meta { font-size:11.5px; color:var(--gray-400); line-height:1.8; }
+  .media-feature a {
+    font-size:12px; color:var(--gray-600); border-bottom:1px solid var(--gray-400); padding-bottom:2px; flex-shrink:0;
+  }
+  .media-feature a:hover { color:var(--black); border-color:var(--black); }
+
+  /* ===== 料金 ===== */
+  .pricing { padding:120px 32px; text-align:center; }
+  .price-card {
+    max-width:440px; margin:36px auto 0; border:1px solid var(--black); padding:48px 36px;
+  }
+  .price-card .badge-limited { margin-bottom:22px; }
+  .price-card .label { font-size:13px; color:var(--gray-600); letter-spacing:0.05em; }
+  .price-card .price {
+    font-family:"Space Grotesk",sans-serif; font-size:52px; font-weight:700;
+    color:var(--black); margin:10px 0 4px;
+  }
+  .price-card .price span { font-size:15px; font-weight:400; color:var(--gray-600); }
+  .price-card .btn { width:100%; justify-content:center; margin-top:24px; }
+  .notes { font-size:11.5px; color:var(--gray-400); margin-top:26px; text-align:left; line-height:1.9; }
+
+  /* ===== Googleフォーム ===== */
+  .form-section { padding:120px 32px; background:var(--gray-100); text-align:center; }
+  .form-box { max-width:600px; margin:36px auto 0; overflow:hidden; }
+  .form-embed { width:100%; max-width:600px; height:640px; margin:36px auto 0; border:1px solid var(--gray-300); overflow:hidden; }
+  .form-embed iframe { width:100%; height:100%; border:none; display:block; }
+  .form-note { font-size:11.5px; color:var(--gray-400); margin-top:16px; }
+
+  /* ===== FOOTER ===== */
+  footer { background:var(--black); color:var(--gray-400); padding:80px 32px 36px; text-align:center; }
+  footer .salon-name {
+    font-family:"Space Grotesk",sans-serif; font-size:20px; letter-spacing:0.08em;
+    color:#fff; margin-bottom:10px;
+  }
+  footer .tagline { font-size:12px; color:var(--gray-600); margin-bottom:40px; }
+  footer nav ul { justify-content:center; margin:0 auto 30px; font-size:12.5px; }
+  footer .copyright { font-size:11px; color:var(--gray-600); margin-top:16px; }
+
+  @media (max-width:860px){
+    .hero .grid, .profile .grid { grid-template-columns:1fr; }
+    .target-grid, .pillars, .video-grid, .press-grid { grid-template-columns:1fr; }
+    .discipline .grid, .discipline.reverse .grid { grid-template-columns:1fr; }
+    .discipline.reverse .grid .visual { order:0; }
+    .hero h1 { font-size:32px; }
+    nav ul { display:none; }
+    .hero .visual, .profile .photo { max-width:320px; margin:0 auto; }
+  }
+
+  @media (max-width:640px){
+    body { overflow-x:hidden; }
+    .wrap, .hero, .vision, .profile, .target, .offer, .discipline,
+    .about-music, .music-works, .videos, .pricing, .form-section {
+      padding-left:20px; padding-right:20px;
+    }
+    header .inner { padding:16px 20px; }
+    .logo { font-size:14px; gap:6px; }
+    .logo .mark { width:20px; height:20px; }
+    header .btn { padding:9px 16px; font-size:11px; }
+
+    .hero { padding-top:64px; }
+    .badge-limited { font-size:11px; padding:6px 14px 6px 12px; margin-bottom:20px; }
+    .hero h1 { font-size:26px; line-height:1.5; margin-bottom:18px; }
+    .hero .lead { font-size:13.5px; margin-bottom:28px; }
+    .hero .cta-row { flex-direction:column; align-items:stretch; }
+    .hero .cta-row .btn { justify-content:center; }
+    .hero .visual { max-width:220px; aspect-ratio:1/1; }
+    .hero-bottom { margin-top:44px; }
+
+    .price-bar { padding:20px; flex-direction:column; align-items:flex-start; }
+    .price-bar .left { flex-direction:column; align-items:flex-start; gap:4px; }
+    .price-bar .amount { font-size:26px; }
+    .price-bar > div:last-child { width:100%; flex-direction:column; align-items:stretch; gap:12px; }
+    .price-bar .btn { justify-content:center; }
+
+    .vision, .profile, .target, .offer, .discipline, .about-music,
+    .music-works, .videos, .pricing, .form-section { padding-top:64px; padding-bottom:64px; }
+
+    .vision .intro h2 { font-size:21px; }
+    .vision-item { flex-wrap:wrap; gap:8px 16px; padding:20px 4px; }
+    .vision-item .name { flex:1 0 auto; }
+    .vision-item .desc { flex:1 1 100%; order:3; }
+    .vision-item .status { margin-left:auto; }
+
+    .section-head h2 { font-size:22px; }
+    .offer .intro h2 { font-size:21px; }
+    .pillar { padding:36px 22px; }
+
+    .discipline h3 { font-size:20px; }
+    .discipline .flow { gap:8px; }
+    .discipline .flow .step { font-size:11.5px; padding:7px 12px; }
+
+    .about-music h2 { font-size:22px; }
+    .freq-visual { height:80px; }
+
+    .track { gap:14px; padding:20px 4px; }
+    .track .wave { display:none; }
+    .track .meta .title { font-size:14px; }
+
+    .media-feature { padding:24px 20px; }
+    .press-card { padding:28px 18px; }
+
+    .price-card { padding:36px 22px; }
+    .price-card .price { font-size:40px; }
+
+    footer { padding:64px 20px 28px; }
+    footer nav ul { flex-wrap:wrap; gap:16px 22px; }
+  }
+
+  @media (max-width:400px){
+    .logo { font-size:12px; }
+    .hero h1 { font-size:23px; }
+    .price-bar .amount { font-size:22px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="inner">
+      <div class="logo"><span class="mark"></span>FUTURE_VISION_LABO</div>
+      <nav><ul>
+        <li><a href="#profile">経歴</a></li>
+        <li><a href="#offer">施術内容</a></li>
+        <li><a href="#music">機能性音楽</a></li>
+        <li><a href="#entry">申し込み</a></li>
+      </ul></nav>
+      <a href="#entry" class="btn btn-solid">申し込む</a>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="grid" style="grid-template-columns:1fr; text-align:center;">
+      <div style="max-width:720px; margin:0 auto;">
+        <div class="badge-limited"><span class="dot"></span>5名様限定 CS60施術モニター募集</div>
+        <h1>CS60で、細胞から<br>本来の健やかさを引き出す</h1>
+        <p class="lead" style="margin-left:auto; margin-right:auto;">体の外側からCS60で細胞にアプローチし、精密栄養学とアーユルヴェーダで内側から整え、機能性音楽で深いリラクゼーションへ導きます。</p>
+        <div class="cta-row" style="justify-content:center;">
+          <a href="#entry" class="btn btn-solid">モニターに申し込む →</a>
+          <a href="#offer" class="btn btn-outline">施術内容を見る</a>
+        </div>
+      </div>
+    </div>
+    <div class="wave-divider hero-bottom">
+      <span style="animation-delay:0s"></span><span style="animation-delay:.1s"></span>
+      <span style="animation-delay:.2s"></span><span style="animation-delay:.3s"></span>
+      <span style="animation-delay:.4s"></span><span style="animation-delay:.3s"></span>
+      <span style="animation-delay:.2s"></span><span style="animation-delay:.1s"></span>
+      <span style="animation-delay:0s"></span>
+    </div>
+  </section>
+
+  <!-- ===== FV直下 モニター価格バー(価格記載はここのみ) ===== -->
+  <div class="price-bar">
+    <div class="left">
+      <span class="tag">【5名様限定】CS60施術モニター 15分</span>
+      <span class="amount">3,300<span>円(税込)</span></span>
+    </div>
+    <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+      <span class="note">※同意書が必要です ・医療行為ではありません</span>
+      <a href="#entry" class="btn btn-solid">申し込む →</a>
+    </div>
+  </div>
+
+  <!-- ===== 展開予定サービス(ビジョン) ===== -->
+  <section class="vision">
+    <div class="wrap">
+      <div class="intro">
+        <p class="eyebrow center">OUR VISION</p>
+        <h2 style="font-size:26px; line-height:1.7;">FUTURE_VISION_LABOが目指す、5つのアプローチ</h2>
+        <p style="margin-top:20px;">栄養アドバイス、アーユルヴェーダ、CS60、機能性音楽、そしてオンライン学習サービス。心と体、両方の側面からアプローチする5本柱を展開していきます。まずは、体感としてわかりやすいCS60から先行してスタートしました。</p>
+      </div>
+      <div class="vision-list">
+        <div class="vision-item active">
+          <span class="idx">01</span>
+          <span class="name">CS60</span>
+          <span class="desc">細胞レベルへアプローチし、本来の健やかさを引き出す施術。</span>
+          <span class="status">NOW / モニター受付中</span>
+        </div>
+        <div class="vision-item">
+          <span class="idx">02</span>
+          <span class="name">栄養アドバイス</span>
+          <span class="desc">精密栄養学の考え方に基づいた、個別の栄養サポート。</span>
+          <span class="status soon">Coming Soon</span>
+        </div>
+        <div class="vision-item">
+          <span class="idx">03</span>
+          <span class="name">アーユルヴェーダ</span>
+          <span class="desc">ドウシャ診断から、本来の体質へ戻すアプローチ。</span>
+          <span class="status soon">Coming Soon</span>
+        </div>
+        <div class="vision-item">
+          <span class="idx">04</span>
+          <span class="name">機能性音楽</span>
+          <span class="desc">周波数設計された音楽による、深いリラクゼーション。</span>
+          <span class="status soon">Coming Soon</span>
+        </div>
+        <div class="vision-item">
+          <span class="idx">05</span>
+          <span class="name">オンライン学習サービス</span>
+          <span class="desc">場所を選ばず学べる、ヘルスケアの学習コンテンツ。</span>
+          <span class="status soon">Coming Soon</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 経歴 ===== -->
+  <section class="profile" id="profile">
+    <div class="wrap" style="max-width:680px; text-align:center;">
+      <p class="eyebrow center">PROFILE</p>
+      <h3>学びを、実践へ。</h3>
+      <p>health care Catalyst collegeで分子栄養整合学を学び、現在nomad academyで精密栄養学、Ayurveda、機能性音楽などの学びをアウトプットしています。</p>
+    </div>
+  </section>
+
+  <!-- ===== こんな方におすすめ ===== -->
+  <section class="target">
+    <div class="wrap section-head">
+      <p class="eyebrow center">FOR YOU</p>
+      <h2>こんなお悩みはありませんか?</h2>
+    </div>
+    <div class="target-grid">
+      <div class="target-item">
+        <div class="illust">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="19" cy="6" r="2.6" class="icon-line"/>
+            <path d="M17 10 L13 15 L16 18 L14 26" class="icon-line"/>
+            <path d="M16 18 L22 21 L25 27" class="icon-line"/>
+            <path d="M13 15 L6 17" class="icon-line"/>
+            <path d="M14 26 L9 29" class="icon-line"/>
+            <path d="M14 26 L19 29" class="icon-line"/>
+          </svg>
+        </div>
+        <p class="num">01</p>
+        <h3>パフォーマンスを<br>向上させたい方</h3>
+        <p>ビジネスや日々の活動のパフォーマンスを高めたい方に。</p>
+      </div>
+      <div class="target-item">
+        <div class="illust">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="7" r="2.6" class="icon-line"/>
+            <path d="M16 11 L16 18" class="icon-line"/>
+            <path d="M16 14 L9 19 M16 14 L23 19" class="icon-line"/>
+            <path d="M16 18 L8 24 M16 18 L24 24" class="icon-line"/>
+            <path d="M8 24 Q16 28 24 24" class="icon-line-soft"/>
+          </svg>
+        </div>
+        <p class="num">02</p>
+        <h3>運動習慣がある方<br>疲労感が抜けない方</h3>
+        <p>ランニングやヨガなどの運動習慣があり、疲労感が抜けない方に。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 施術内容 ===== -->
+  <section class="offer" id="offer">
+    <div class="wrap">
+      <div class="intro">
+        <p class="eyebrow center">WHAT WE OFFER</p>
+        <h2>CS60による施術をモニターとしてご提供。<br>Ayurvedaのドウシャ診断、栄養アドバイスも可能です。</h2>
+        <p>施術中は音叉もしくは機能性音楽を流しながら、CS60で施術いたします。</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <div class="icon-ring">
+            <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="10" class="icon-line"/><circle cx="16" cy="16" r="4" class="icon-line"/><circle cx="16" cy="16" r="1.4" fill="var(--black)" stroke="none"/></svg>
+          </div>
+          <h4>細胞レベルにアプローチ</h4>
+          <p>微弱な電流で、体の内側から本来のバランスへ。</p>
+        </div>
+        <div class="pillar">
+          <div class="icon-ring">
+            <svg viewBox="0 0 32 32"><path d="M16 27c8-4 8-12 8-18-6 0-8 3-8 3s-2-3-8-3c0 6 0 14 8 18z" class="icon-line"/><path d="M16 27V13" class="icon-line-soft"/></svg>
+          </div>
+          <h4>Ayurvedaの知恵を活用</h4>
+          <p>ドウシャ診断で、あなた本来の体質を紐解く。</p>
+        </div>
+        <div class="pillar">
+          <div class="icon-ring">
+            <svg viewBox="0 0 32 32"><circle cx="10" cy="24" r="3" class="icon-line"/><circle cx="22" cy="21" r="3" class="icon-line"/><path d="M13 24V9l12-3v15" class="icon-line"/></svg>
+          </div>
+          <h4>機能性音楽で深いリラクゼーション</h4>
+          <p>周波数設計された音で、深い休息へと導く。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 精密栄養学とは ===== -->
+  <section class="discipline">
+    <div class="wrap" style="max-width:720px;">
+      <p class="num-tag">01 / PRECISION NUTRITION</p>
+      <h3>精密栄養学とは</h3>
+      <p>精密栄養学とは、画一的な栄養指導ではなく、一人ひとりの体質・体調・生活習慣に合わせて、必要な栄養へのアプローチを個別に見立てていく考え方です。</p>
+      <p>血液データをお持ちでない方がほとんど、という前提に立ち、まずは今のお悩みや体調の不調、そしてアーユルヴェーダのドウシャ診断の結果から、あなたに必要な栄養へのアプローチを見立てていきます。</p>
+      <p>数値がなくても、体からのサインを丁寧に読み解くことで、今の自分に合った栄養の選び方・整え方をお伝えします。</p>
+      <div class="flow">
+        <span class="step">不調のヒアリング</span>
+        <span class="arrow">→</span>
+        <span class="step">ドウシャ診断の結果</span>
+        <span class="arrow">→</span>
+        <span class="step">栄養アドバイス</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== アーユルヴェーダとは ===== -->
+  <section class="discipline reverse">
+    <div class="wrap" style="max-width:720px;">
+      <p class="num-tag">02 / AYURVEDA</p>
+      <h3>アーユルヴェーダとは</h3>
+      <p>まずドウシャ診断によって、あなた本来の体質である「プラクリティ」を知ることから始めます。</p>
+      <p>そして、今の心身の状態(ヴィクリティ)が、本来の体質からどれくらい・どのようにずれているのかを見極め、そのずれを再びプラクリティへと戻していく。それがアーユルヴェーダの考え方です。</p>
+      <div class="flow">
+        <span class="step">プラクリティ(本来の体質)</span>
+        <span class="arrow">→</span>
+        <span class="step">ヴィクリティ(今のずれ)</span>
+        <span class="arrow">→</span>
+        <span class="step">プラクリティへ戻す</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 機能性音楽とは ===== -->
+  <section class="about-music" id="music">
+    <div class="wrap">
+      <p class="eyebrow">03 / FUNCTIONAL MUSIC</p>
+      <h2>機能性音楽とは、心と体の状態に働きかけるために設計された音楽です。</h2>
+      <p class="body">
+        単なるBGMではなく、周波数・リズム・音色を意図的に構成し、自律神経やホルモンバランス、深いリラクゼーションへとアプローチします。CS60による細胞への電位刺激と組み合わせることで、身体と感覚の両面から本来の健やかさを引き出します。
+      </p>
+      <div class="freq-visual">
+        <span style="animation-delay:0s"></span><span style="animation-delay:.15s"></span>
+        <span style="animation-delay:.3s"></span><span style="animation-delay:.05s"></span>
+        <span style="animation-delay:.25s"></span><span style="animation-delay:.1s"></span>
+        <span style="animation-delay:.35s"></span><span style="animation-delay:.2s"></span>
+        <span style="animation-delay:0s"></span><span style="animation-delay:.3s"></span>
+        <span style="animation-delay:.15s"></span><span style="animation-delay:.4s"></span>
+        <span style="animation-delay:.05s"></span><span style="animation-delay:.25s"></span>
+        <span style="animation-delay:.1s"></span><span style="animation-delay:.35s"></span>
+        <span style="animation-delay:.2s"></span><span style="animation-delay:0s"></span>
+      </div>
+      <p class="caption">FREQUENCY DESIGNED FOR CELLULAR RESONANCE</p>
+    </div>
+  </section>
+
+  <!-- ===== 音楽作品紹介 ===== -->
+  <section class="music-works">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow center">ORIGINAL TRACKS</p>
+        <h2>制作している機能性音楽</h2>
+      </div>
+      <div class="track-list">
+        <div class="track">
+          <div class="play">▶</div>
+          <div class="meta">
+            <p class="title">Track Title 01</p>
+            <p class="tag">DEEP RELAX / 432Hz</p>
+          </div>
+          <div class="wave">
+            <span style="height:8px"></span><span style="height:16px"></span><span style="height:6px"></span>
+            <span style="height:20px"></span><span style="height:10px"></span><span style="height:18px"></span>
+            <span style="height:5px"></span><span style="height:14px"></span><span style="height:9px"></span>
+            <span style="height:17px"></span><span style="height:7px"></span><span style="height:12px"></span>
+          </div>
+          <p class="duration">4:12</p>
+        </div>
+        <div class="track">
+          <div class="play">▶</div>
+          <div class="meta">
+            <p class="title">Track Title 02</p>
+            <p class="tag">FOCUS / BINAURAL</p>
+          </div>
+          <div class="wave">
+            <span style="height:14px"></span><span style="height:6px"></span><span style="height:19px"></span>
+            <span style="height:9px"></span><span style="height:15px"></span><span style="height:7px"></span>
+            <span style="height:20px"></span><span style="height:11px"></span><span style="height:8px"></span>
+            <span style="height:16px"></span><span style="height:6px"></span><span style="height:13px"></span>
+          </div>
+          <p class="duration">3:48</p>
+        </div>
+        <div class="track">
+          <div class="play">▶</div>
+          <div class="meta">
+            <p class="title">Track Title 03</p>
+            <p class="tag">MEDITATION / 528Hz</p>
+          </div>
+          <div class="wave">
+            <span style="height:9px"></span><span style="height:18px"></span><span style="height:7px"></span>
+            <span style="height:13px"></span><span style="height:20px"></span><span style="height:6px"></span>
+            <span style="height:15px"></span><span style="height:8px"></span><span style="height:17px"></span>
+            <span style="height:10px"></span><span style="height:14px"></span><span style="height:6px"></span>
+          </div>
+          <p class="duration">5:02</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 動画 ===== -->
+  <section class="videos">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow center">MOVIE & PRESS</p>
+        <h2>著名人・メディアが注目するCS60</h2>
+      </div>
+      <div class="video-grid">
+        <div>
+          <div class="video-box" style="border:1px solid var(--gray-300);">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/1D7vlV3aTvU" title="CS60 紹介動画1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display:block;"></iframe>
+          </div>
+          <p class="video-caption">岡田准一さんがCS60をご紹介</p>
+        </div>
+        <div>
+          <div class="video-box" style="border:1px solid var(--gray-300);">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/3kj6eSBnxCI" title="CS60 紹介動画2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display:block;"></iframe>
+          </div>
+          <p class="video-caption">岡田准一さんがCS60をご紹介</p>
+        </div>
+      </div>
+
+      <!-- 著名人の声 -->
+      <div class="press-grid">
+        <div class="press-card">
+          <p class="role">ACTRESS</p>
+          <p class="name">杉田かおる さん</p>
+          <a href="https://cs60.com/newsletter-vol-207/" target="_blank" rel="noopener">詳しくはこちら →</a>
+        </div>
+        <div class="press-card">
+          <p class="role">柔術王者</p>
+          <p class="name">石黒翔也 さん</p>
+          <a href="https://cs60.com/newsletter-vol-206/" target="_blank" rel="noopener">詳しくはこちら →</a>
+        </div>
+        <div class="press-card">
+          <p class="role">三恵歯科医院 院長</p>
+          <p class="name">森一弘 先生</p>
+          <a href="https://cs60.com/newsletter-vol-215/" target="_blank" rel="noopener">詳しくはこちら →</a>
+        </div>
+      </div>
+
+      <!-- メディア掲載 -->
+      <div class="media-feature">
+        <span class="mark">★ メディア掲載</span>
+        <div class="body">
+          <p>『暮しの手帖』にて、吉本ばななさんが実践される健康法としてCS60が紹介されました。</p>
+          <p class="meta">雑誌名:『別冊 暮しの手帖 健康と暮らし』(P12)　発売日:2023年3月22日　発行:(株)暮しの手帖社</p>
+        </div>
+        <a href="https://www.kurashi-no-techo.co.jp/bessatsu/e_2108.html" target="_blank" rel="noopener">掲載誌を見る →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== Googleフォーム(価格の再掲なし・申込導線のみ) ===== -->
+  <section class="form-section" id="entry">
+    <p class="eyebrow center">ENTRY</p>
+    <h2 style="font-size:28px; margin-top:8px;">CS60施術モニター お申込みはこちら</h2>
+    <p style="font-size:13px; color:var(--gray-600); margin-top:12px;">価格・注意事項はページ上部をご確認ください。</p>
+    <div class="form-embed">
+      <iframe src="https://forms.gle/9u8mFjRxgRGEmQVQ8" title="お申込みフォーム">読み込んでいます…</iframe>
+    </div>
+    <p class="form-note">フォームが表示されない場合は<a href="https://forms.gle/9u8mFjRxgRGEmQVQ8" target="_blank" rel="noopener" style="text-decoration:underline;">こちら</a>から直接お申込みください</p>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p class="salon-name">FUTURE_VISION_LABO</p>
+    <p class="tagline">精密栄養学 × Ayurveda × 機能性音楽</p>
+    <nav><ul style="display:flex; list-style:none; gap:28px;">
+      <li><a href="#profile">経歴</a></li>
+      <li><a href="#offer">施術内容</a></li>
+      <li><a href="#music">機能性音楽</a></li>
+      <li><a href="#entry">お問い合わせ</a></li>
+    </ul></nav>
+    <p class="copyright">© FUTURE_VISION_LABO</p>
+  </footer>
+
+</body>
+</html>
