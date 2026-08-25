@@ -191,6 +191,21 @@
   .vision-item.active { background:var(--white); }
   .vision-item.active .status { background:var(--black); color:#fff; }
   .vision-item .status.soon { border:1px solid var(--gray-300); color:var(--gray-400); }
+  .vision-item .status.free { border:1px solid #3f8f7a; color:#2f6e5c; background:rgba(63,143,122,0.08); }
+
+  /* ===== オンライン学習サービス 無料プレビュー ===== */
+  .free-preview {
+    max-width:900px; margin:40px auto 0; padding:32px;
+    background:var(--white); border:1px solid var(--gray-300); border-radius:4px;
+  }
+  .free-preview-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:center; }
+  .free-preview .eyebrow { margin-bottom:10px; }
+  .free-preview h3 { font-size:17px; line-height:1.6; margin-bottom:12px; }
+  .free-preview p.desc { font-size:12.5px; color:var(--gray-600); margin-bottom:20px; }
+  .free-preview .channels { font-size:11.5px; color:var(--gray-400); margin-top:14px; letter-spacing:0.03em; }
+  @media (max-width:860px) {
+    .free-preview-grid { grid-template-columns:1fr; }
+  }
 
   /* ===== 経歴 ===== */
   .profile { padding:110px 32px; }
@@ -549,7 +564,22 @@
           <span class="idx">05</span>
           <span class="name">オンライン学習サービス</span>
           <span class="desc">場所を選ばず学べる、ヘルスケアの学習コンテンツ。</span>
-          <span class="status soon">Coming Soon</span>
+          <span class="status free">無料コンテンツ配信中</span>
+        </div>
+      </div>
+
+      <div class="free-preview">
+        <div class="free-preview-grid">
+          <div class="video-box" style="border:1px solid var(--gray-300);">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/vDo746D_7GM" title="食べてから消化・吸収まで" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display:block;"></iframe>
+          </div>
+          <div>
+            <p class="eyebrow">FREE CONTENT</p>
+            <h3>オンライン学習サービス、無料コンテンツ配信中</h3>
+            <p class="desc">ヘルスケア・栄養に関する学びを動画で発信しています。まずは1本、無料でご覧いただけます。</p>
+            <a href="https://youtu.be/vDo746D_7GM" target="_blank" rel="noopener" class="btn btn-outline">YouTubeで見る →</a>
+            <p class="channels">YouTube・Instagram・TikTokでも配信中</p>
+          </div>
         </div>
       </div>
     </div>
