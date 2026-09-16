@@ -99,7 +99,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   header .inner {
     display:flex; align-items:center; justify-content:space-between;
-    padding:20px 32px; max-width:1120px; margin:0 auto;
+    padding:20px 32px; max-width:1120px; margin:0 auto; position:relative;
   }
   .logo {
     font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:18px;
@@ -115,7 +115,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   nav ul { display:flex; gap:36px; list-style:none; font-size:13px; letter-spacing:0.03em; }
   nav a:hover { color:var(--gray-600); }
   header .btn { padding:11px 22px; font-size:12px; }
+  .header-actions { display:flex; align-items:center; gap:12px; }
   .nav-mobile-note { display:none; }
+
+  /* ===== ハンバーガーメニュー(モバイル) ===== */
+  .menu-toggle {
+    display:none; flex-direction:column; justify-content:center; gap:5px;
+    width:32px; height:32px; padding:0; background:none; border:none; cursor:pointer;
+  }
+  .menu-toggle span {
+    display:block; width:100%; height:2px; background:var(--black); border-radius:2px;
+    transition:transform .25s ease, opacity .25s ease;
+  }
+  .menu-toggle.active span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .menu-toggle.active span:nth-child(2) { opacity:0; }
+  .menu-toggle.active span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
 
   /* ===== HERO ===== */
   .hero {
@@ -421,7 +435,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .discipline .grid, .discipline.reverse .grid { grid-template-columns:1fr; }
     .discipline.reverse .grid .visual { order:0; }
     .hero h1 { font-size:32px; }
-    nav ul { display:none; }
+    .menu-toggle { display:flex; }
+    nav ul {
+      display:none; position:absolute; top:100%; left:0; right:0;
+      flex-direction:column; gap:0; background:var(--gray-50);
+      border-bottom:1px solid var(--gray-200); padding:8px 20px 16px;
+      box-shadow:0 8px 16px rgba(0,0,0,0.06);
+    }
+    nav ul.open { display:flex; }
+    nav ul li { border-top:1px solid var(--gray-200); }
+    nav ul li:first-child { border-top:none; }
+    nav ul a { display:block; padding:14px 4px; font-size:14px; }
     .hero .visual, .profile .photo { max-width:320px; margin:0 auto; }
   }
 
@@ -508,14 +532,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <header>
     <div class="inner">
       <div class="logo"><span class="mark"></span>FUTURE_VISION_LABO</div>
-      <nav><ul>
+      <nav><ul id="site-nav">
         <li><a href="#profile">経歴</a></li>
         <li><a href="#offer">施術内容</a></li>
         <li><a href="#music">機能性音楽</a></li>
         <li><a href="#blog">ブログ</a></li>
         <li><a href="#entry">申し込み</a></li>
       </ul></nav>
-      <a href="#entry" class="btn btn-solid">申し込む</a>
+      <div class="header-actions">
+        <a href="#entry" class="btn btn-solid">申し込む</a>
+        <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -906,5 +935,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="copyright">© FUTURE_VISION_LABO</p>
   </footer>
 
+  <script>
+    (function () {
+      var toggle = document.querySelector('.menu-toggle');
+      var nav = document.getElementById('site-nav');
+      if (!toggle || !nav) return;
+      function closeMenu() {
+        nav.classList.remove('open');
+        toggle.classList.remove('active');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+      toggle.addEventListener('click', function () {
+        var isOpen = nav.classList.toggle('open');
+        toggle.classList.toggle('active', isOpen);
+        toggle.setAttribute('aria-expanded', String(isOpen));
+      });
+      nav.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+      });
+    })();
+  </script>
 </body>
 </html>
