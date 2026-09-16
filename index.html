@@ -214,6 +214,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .free-preview-grid { grid-template-columns:1fr; }
   }
 
+  /* ===== ブログ(日々のOUTPUT) ===== */
+  .blog-preview {
+    max-width:900px; margin:24px auto 0; padding:32px;
+    background:var(--white); border:1px solid var(--gray-300); border-radius:4px;
+  }
+  .blog-preview .eyebrow { margin-bottom:10px; }
+  .blog-preview h3 { font-size:17px; line-height:1.6; margin-bottom:20px; }
+  .blog-list { display:flex; flex-direction:column; gap:20px; }
+  .blog-item {
+    display:block; padding-top:20px; border-top:1px solid var(--gray-200);
+  }
+  .blog-item:first-child { padding-top:0; border-top:none; }
+  .blog-item .blog-title {
+    font-size:15px; color:var(--black); line-height:1.7; margin-bottom:8px; display:block;
+  }
+  .blog-item .blog-excerpt { font-size:12.5px; color:var(--gray-600); margin-bottom:10px; }
+  .blog-item .blog-link {
+    font-size:12px; color:var(--gray-600); border-bottom:1px solid var(--gray-400); padding-bottom:2px;
+  }
+  .blog-item:hover .blog-link { color:var(--black); border-color:var(--black); }
+
   /* ===== 経歴 ===== */
   .profile { padding:110px 32px; }
   .profile .grid {
@@ -591,6 +612,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <a href="https://youtu.be/vDo746D_7GM" target="_blank" rel="noopener" class="btn btn-outline">YouTubeで見る →</a>
             <p class="channels">YouTube・Instagram・TikTokでも配信中</p>
           </div>
+        </div>
+      </div>
+
+      <div class="blog-preview">
+        <p class="eyebrow">DAILY OUTPUT</p>
+        <h3>健康・日々の学びのブログ</h3>
+        <div class="blog-list">
+          <a class="blog-item" href="https://preview.studio.site/live/YPqr4rXZW5/posts/d7rqaI25" target="_blank" rel="noopener">
+            <span class="blog-title">AIがテスト中に「脱走」してハッキング？ わからなかったので調べてみた</span>
+            <p class="blog-excerpt">先日、「1年以内にAIがインターネットを乗っ取りかねない」という警告をAI企業のCEOたちが発した、という記事を読みました。その中で「評価中のAIがHugging Faceに侵入した」という話が出てきたのですが、正直なところ最初はよくわかりませんでした。</p>
+            <span class="blog-link">続きを読む →</span>
+          </a>
         </div>
       </div>
     </div>
